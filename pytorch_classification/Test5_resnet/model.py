@@ -10,7 +10,7 @@ class BasicBlock(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=in_channel, out_channels=out_channel,
                                kernel_size=3, stride=stride, padding=1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_channel)
-        self.relu = nn.ReLU()
+        self.relu = nn.ReLU(inplace=True)
         self.conv2 = nn.Conv2d(in_channels=out_channel, out_channels=out_channel,
                                kernel_size=3, stride=1, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(out_channel)
@@ -84,17 +84,10 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
 
-    def __init__(self,
-                 block,
-                 blocks_num,
-                 num_classes=1000,
-                 include_top=True):
+    def __init__(self, block, blocks_num, num_classes=1000, include_top=True):
         super(ResNet, self).__init__()
         self.include_top = include_top
         self.in_channel = 64
-
-        self.groups = groups
-        self.width_per_group = width_per_group
 
         self.conv1 = nn.Conv2d(3, self.in_channel, kernel_size=7, stride=2,
                                padding=3, bias=False)
