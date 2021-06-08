@@ -117,16 +117,12 @@ class ResNet(nn.Module):
         layers.append(block(self.in_channel,
                             channel,
                             downsample=downsample,
-                            stride=stride,
-                            groups=self.groups,
-                            width_per_group=self.width_per_group))
+                            stride=stride))
         self.in_channel = channel * block.expansion
 
         for _ in range(1, block_num):
             layers.append(block(self.in_channel,
-                                channel,
-                                groups=self.groups,
-                                width_per_group=self.width_per_group))
+                                channel))
 
         return nn.Sequential(*layers)
 
